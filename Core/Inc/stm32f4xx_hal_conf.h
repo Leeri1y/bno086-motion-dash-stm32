@@ -38,7 +38,7 @@
 #define INSTRUCTION_CACHE_ENABLE 1U
 #define DATA_CACHE_ENABLE    1U
 #define USE_SPI_CRC          0U
-#define USE_RTOS             1U
+#define USE_RTOS             0U
 #define USE_HAL_ADC_REGISTER_CALLBACKS     0U
 #define USE_HAL_CEC_REGISTER_CALLBACKS     0U
 #define USE_HAL_DAC_REGISTER_CALLBACKS     0U
@@ -54,6 +54,13 @@
 
 /* ########################## Assert Selection ############################## */
 #define USE_FULL_ASSERT      0U
+
+#if (USE_FULL_ASSERT == 1U)
+#define assert_param(expr) ((expr) ? (void)0U : assert_failed((uint8_t *)__FILE__, __LINE__))
+void assert_failed(uint8_t *file, uint32_t line);
+#else
+#define assert_param(expr) ((void)0U)
+#endif /* USE_FULL_ASSERT */
 
 /* Includes ------------------------------------------------------------------*/
 #ifdef HAL_RCC_MODULE_ENABLED
